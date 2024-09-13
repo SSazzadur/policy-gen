@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ModeToggle } from "./mode-toggle";
 import { SheetMenu } from "./sheet-menu";
 import { Button } from "@/components/custom/button";
 import { Icons } from "@/components/icons";
@@ -27,11 +26,9 @@ const Header = ({ title, back }: NavbarProps) => {
 					<h1 className="font-bold">{title}</h1>
 				</div>
 				<div className="flex flex-1 items-center gap-x-2 justify-end">
-					<ModeToggle />
+					{/* <ModeToggle /> */}
 					<SignedIn>
-						<div className="size-8">
-							<UserButton />
-						</div>
+						<UserButton />
 					</SignedIn>
 				</div>
 			</div>

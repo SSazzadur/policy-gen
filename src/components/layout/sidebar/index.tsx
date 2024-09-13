@@ -7,6 +7,8 @@ import { Menu } from "./menu";
 import { SidebarToggle } from "./sidebar-toggle";
 import Stores from "@/lib/stores";
 
+import { APP_NAME } from "@/lib/constants";
+
 const Sidebar = () => {
 	const { isSidebarOpen: isOpen, setIsSidebarOpen: setIsOpen, isSidebarOpenLoading: isLoading } = Stores();
 
@@ -38,7 +40,7 @@ const Sidebar = () => {
 								isOpen === false ? "-translate-x-96 opacity-0 hidden" : "translate-x-0 opacity-100"
 							)}
 						>
-							Policy Bazar
+							{APP_NAME}
 						</h1>
 					</Link>
 				</Button>

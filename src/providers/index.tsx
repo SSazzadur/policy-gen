@@ -1,12 +1,17 @@
-import { FC } from "react";
-import ClerkProvider from "./clerk-provider";
+"use client";
 
-interface ProvidersProps {
-	children: React.ReactNode;
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
+import type * as React from "react";
+import { StoreProvider } from "./StoreProvider";
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+	return (
+		<StoreProvider>
+			<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+				{children}
+				<Toaster />
+			</ThemeProvider>
+		</StoreProvider>
+	);
 }
-
-const Providers: FC<ProvidersProps> = ({ children }) => {
-	return <ClerkProvider>{children}</ClerkProvider>;
-};
-
-export default Providers;

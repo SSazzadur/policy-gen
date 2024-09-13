@@ -1,9 +1,8 @@
 import { buttonVariants, Button as ShadButton } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Slot } from "@radix-ui/react-slot";
 import { VariantProps } from "class-variance-authority";
-import React, { FC } from "react";
-import { Icon, Icons } from "@/components/icons";
+import React from "react";
+import { Icons } from "@/components/icons";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
 	asChild?: boolean;
@@ -13,7 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Var
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, leftIcon, rightIcon, isLoading, asChild = false, ...props }, ref) => {
+	({ className, variant, size, leftIcon, rightIcon, isLoading, ...props }, ref) => {
 		return (
 			<>
 				<ShadButton

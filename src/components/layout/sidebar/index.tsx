@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ const Sidebar = () => {
 					asChild
 				>
 					<Link href="/" className="flex items-center gap-2">
-						<PanelsTopLeft className="w-6 h-6 mr-1" />
+						<Image src="/assets/images/logo.png" alt="Logo" width={150} height={150} className="size-10" />
 						<h1
 							className={cn(
 								"font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",

@@ -1,16 +1,19 @@
 import Layout from "@/components/layout";
 import { POLICIES } from "@/lib/constants";
-import { currentUser } from "@clerk/nextjs/server";
+import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const HomePage = async () => {
-	const user = await currentUser();
-
-	if (!user) redirect("/sign-in");
-
 	return (
-		<Layout title="Home" className="container flex items-center justify-center">
+		<Layout title="Home" className="container flex flex-col gap-14 items-center justify-center">
+			<div className="flex flex-col items-center">
+				<Image src="/assets/images/logo.png" alt="Logo" width={150} height={150} />
+				<h1 className="text-2xl font-semibold mt-4">
+					Welcome to <span className="text-primary">PolicyGen</span>
+				</h1>
+				<p className="italic">Find your perfect policy here.</p>
+			</div>
+
 			<div className="grid grid-cols-auto-fit gap-4">
 				{POLICIES.map(policy => (
 					<Link href={`/${policy.id}`} key={policy.id}>

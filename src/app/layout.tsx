@@ -18,6 +18,20 @@ const geistMono = localFont({
 export const metadata: Metadata = {
 	title: "PolicyGen",
 	description: "PolicyGen | Get perfect policies at a click",
+	openGraph: {
+		title: "PolicyGen",
+		description: "PolicyGen | Get perfect policies at a click",
+		url: "https://www.policy-gen.vercel.app",
+		siteName: "PolicyGen",
+		locale: "en-IN",
+		type: "website",
+	},
+	twitter: {
+		title: "PolicyGen",
+		description: "PolicyGen | Get perfect policies at a click",
+		card: "summary_large_image",
+		creatorId: "vercel",
+	},
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

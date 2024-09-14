@@ -12,7 +12,7 @@ const Layout = ({ title, children, className, back }: ContentLayoutProps) => {
 	return (
 		<div className="space-y-4">
 			<Header title={title} back={back} />
-			<div className={cn("min-h-screen", className)}>{children}</div>
+			<div className={cn("min-h-[calc(100svh-8rem)]", className)}>{children}</div>
 		</div>
 	);
 };

@@ -16,6 +16,11 @@ const config: Config = {
 			},
 		},
 		extend: {
+			gridTemplateColumns: {
+				"auto-fit": "repeat(auto-fit, minmax(16rem, 1fr))",
+				"auto-fill": "repeat(auto-fill, minmax(16rem, 1fr))",
+			},
+
 			colors: {
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
@@ -65,6 +70,7 @@ const config: Config = {
 			},
 		},
 	},
+
 	plugins: [require("tailwindcss-animate")],
 };
 export default config;

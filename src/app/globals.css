@@ -78,4 +78,22 @@ body {
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	/* ::-webkit-scrollbar, */
+	*::-webkit-scrollbar {
+		display: none;
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge, and Firefox */
+	.scrollbar-hide {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	* {
+		-webkit-tap-highlight-color: transparent;
+	}
 }

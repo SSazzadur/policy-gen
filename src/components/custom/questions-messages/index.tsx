@@ -82,7 +82,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
 	};
 
 	return (
-		<div ref={scrollRef} className="w-full px-6 py-4 space-y-6">
+		<div ref={scrollRef} className="w-full py-4 space-y-6">
 			{/* Progressive question display */}
 			<AnimatePresence>
 				{QUESTIONS.slice(0, currentQuestionIndex + 1).map((question, idx) => (

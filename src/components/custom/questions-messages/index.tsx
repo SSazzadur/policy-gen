@@ -73,6 +73,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
 
 	const compileAnswers = () => {
 		return answers
+			.filter(ans => ans.value !== "Skipped")
 			.map(ans => {
 				const question = QUESTIONS.find(q => q.id === ans.id);
 				return question ? `${question.message} ${ans.value}` : "";

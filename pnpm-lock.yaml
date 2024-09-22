@@ -14,6 +14,9 @@ importers:
       '@clerk/themes':
         specifier: ^2.1.29
         version: 2.1.29
+      '@google/generative-ai':
+        specifier: ^0.19.0
+        version: 0.19.0
       '@prisma/client':
         specifier: ^5.19.1
         version: 5.19.1(prisma@5.19.1)
@@ -177,6 +180,10 @@ packages:
 
   '@floating-ui/utils@0.2.7':
     resolution: {integrity: sha512-X8R8Oj771YRl/w+c1HqAC1szL8zWQRwFvgDwT129k9ACdBoud/+/rX9V0qiMl6LWUdP9voC2nDVZYPMQQsb6eA==}
+
+  '@google/generative-ai@0.19.0':
+    resolution: {integrity: sha512-iGf/62v3sTwtEJGJY6S5m7PfkglU8hi1URaxqIjiRg1OItV27xyc4aVeR0og8cDkZFkUlGZKv+23bJtT1QWFzQ==}
+    engines: {node: '>=18.0.0'}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -2309,6 +2316,8 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@floating-ui/utils@0.2.7': {}
+
+  '@google/generative-ai@0.19.0': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:

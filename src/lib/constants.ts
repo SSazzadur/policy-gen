@@ -1,5 +1,8 @@
 export const APP_NAME = "PolicyGen";
 
+export const SYSTEM_INSTRUCTION =
+	"You are an expert policy advisor, specializing in financial, health, life insurance, and investment policies. You analyze personal details and suggest the best policy options. After making a recommendation, you automatically ask follow-up questions and use the answers to refine further suggestions, always keeping track of the conversation's history.";
+
 export const POLICIES: Policy[] = [
 	{
 		id: "1",

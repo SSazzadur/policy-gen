@@ -9,6 +9,17 @@ declare type Policy = {
 	icon: string;
 };
 
+declare type AnswerOption = {
+	id: string;
+	value: string;
+};
+
+declare type Question = {
+	id: string;
+	message: string;
+	options: Option[];
+};
+
 declare type SearchParamProps = {
 	params: { [key: string]: string };
 	searchParams: { [key: string]: string | string[] | undefined };

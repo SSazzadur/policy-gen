@@ -13,34 +13,36 @@ export const POLICIES: Policy[] = [
 		body: "Covers medical expenses, hospitalization costs, and provides financial protection against health-related emergencies. It offers peace of mind by ensuring quality healthcare.",
 		icon: "🏥",
 	},
+];
+
+export const QUESTIONS: Question[] = [
+	{
+		id: "1",
+		message: "Select your age range:",
+		options: [
+			{ id: "1", value: "18-25" },
+			{ id: "2", value: "26-35" },
+			{ id: "3", value: "36-45" },
+			{ id: "4", value: "45+" },
+		],
+	},
+	{
+		id: "2",
+		message: "Select your gender:",
+		options: [
+			{ id: "1", value: "Male" },
+			{ id: "2", value: "Female" },
+			{ id: "3", value: "Other" },
+		],
+	},
 	{
 		id: "3",
-		name: "Car Insurance",
-		body: "Protects your vehicle against damages, theft, and provides third-party liability coverage. Includes benefits like roadside assistance and zero depreciation cover.",
-		icon: "🚗",
-	},
-	{
-		id: "4",
-		name: "Two-Wheeler Insurance",
-		body: "Offers protection for your motorcycle or scooter, covering damages and third-party liabilities. Includes personal accident coverage and roadside assistance.",
-		icon: "🏍️",
-	},
-	{
-		id: "5",
-		name: "Travel Insurance",
-		body: "Provides coverage for travel-related risks, including trip cancellations, medical emergencies, and lost luggage. Ensures peace of mind during journeys.",
-		icon: "✈️",
-	},
-	{
-		id: "6",
-		name: "Home Insurance",
-		body: "Protects your home and contents against damages from natural disasters, theft, and unforeseen events. Includes liability coverage and accommodation costs.",
-		icon: "🏠",
-	},
-	{
-		id: "7",
-		name: "Critical Illness Insurance",
-		body: "Offers financial protection if diagnosed with a specified critical illness, helping cover treatment costs and loss of income. Provides flexibility in treatment.",
-		icon: "🏥",
+		message: "Select your income range:",
+		options: [
+			{ id: "1", value: "₹0 - ₹25,000" },
+			{ id: "2", value: "₹25,000 - ₹50,000" },
+			{ id: "3", value: "₹50,000 - ₹1,00,000" },
+			{ id: "4", value: "₹1,00,000+" },
+		],
 	},
 ];

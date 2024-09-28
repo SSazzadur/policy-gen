@@ -4,7 +4,7 @@ import { POLICIES } from "@/lib/constants";
 import { notFound } from "next/navigation";
 
 const PolicyDetails = ({ params }: SearchParamProps) => {
-	const policy = POLICIES.find(policy => policy.id === params.id);
+	const policy = POLICIES.find(policy => policy.slug === params.slug);
 	if (!policy) return notFound();
 
 	return (

@@ -14,3 +14,19 @@ model User {
   emailVerified DateTime?
   image         String?
 }
+
+model Conversations {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  user     String
+  policy   String
+  messages Messages[]
+}
+
+model Messages {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  message         String
+  by              String
+  createdAt       DateTime       @default(now())
+  conversationsId String?        @db.ObjectId
+  conversations   Conversations? @relation(fields: [conversationsId], references: [id])
+}

@@ -4,6 +4,7 @@ declare type StoreContextType = {
 
 declare type Policy = {
 	id: string;
+	slug: string;
 	name: string;
 	body: string;
 	icon: string;

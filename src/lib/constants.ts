@@ -6,12 +6,14 @@ export const SYSTEM_INSTRUCTION =
 export const POLICIES: Policy[] = [
 	{
 		id: "1",
+		slug: "term-life-insurance",
 		name: "Term Life Insurance",
 		body: "Provides financial protection for your family in case of untimely death, offering a lump sum payout for a specified term. This policy ensures financial stability.",
 		icon: "🛡️",
 	},
 	{
 		id: "2",
+		slug: "health-insurance",
 		name: "Health Insurance",
 		body: "Covers medical expenses, hospitalization costs, and provides financial protection against health-related emergencies. It offers peace of mind by ensuring quality healthcare.",
 		icon: "🏥",

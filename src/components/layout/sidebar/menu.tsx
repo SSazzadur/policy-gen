@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Ellipsis, LogOut } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { getMenuList } from "./menu-list";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CollapseMenuButton } from "./collapse-menu-button";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import { useClerk } from "@clerk/nextjs";
 
 interface MenuProps {
 	isOpen: boolean | undefined;
@@ -17,7 +18,8 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
 	const pathname = usePathname();
-	const router = useRouter();
+	const { signOut } = useClerk();
+
 	const menuList = getMenuList(pathname);
 
 	return (
@@ -97,8 +99,7 @@ export function Menu({ isOpen }: MenuProps) {
 							<Tooltip delayDuration={100}>
 								<TooltipTrigger asChild>
 									<Button
-										// TODO: implement sign out
-										onClick={() => router.replace("/sign-in")}
+										onClick={() => signOut({ redirectUrl: "/" })}
 										variant="outline"
 										className="w-full justify-center h-10 mt-5"
 									>

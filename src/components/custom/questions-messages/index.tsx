@@ -1,15 +1,20 @@
 "use client";
 
-import { useState, useEffect, useRef, FC } from "react";
+import { useState, useEffect, useRef, FC, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { QUESTIONS } from "@/lib/constants";
+import { toast } from "sonner";
+import { createNewConversation } from "@/actions/conversations";
 
-interface QuestionsMessagesProps {}
+interface QuestionsMessagesProps {
+	userEmail: string;
+	policy: Policy;
+}
 
-const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
+const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) => {
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [answers, setAnswers] = useState<AnswerOption[]>([]);
-	const [showResults, setShowResults] = useState(false);
+	const [isQuestionsDone, setIsQuestionsDone] = useState<boolean>(false);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const endOfContentRef = useRef<HTMLDivElement>(null);
 
@@ -35,20 +40,56 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
 		if (currentQuestionIndex < QUESTIONS.length - 1) {
 			setCurrentQuestionIndex(currentQuestionIndex + 1);
 		} else {
-			setShowResults(true);
+			setIsQuestionsDone(true);
 		}
 	};
 
-	const compileAnswers = () => {
-		return answers
-			.filter(ans => ans.value !== "Skipped")
-			.map(ans => {
-				const question = QUESTIONS.find(q => q.id === ans.id);
-				return question ? `${question.message} ${ans.value}` : "";
-			})
-			.filter(Boolean)
-			.join(". ");
-	};
+	const onQuestionsDone = useCallback(async () => {
+		try {
+			// const initialResponses = { questions: QUESTIONS, answers: answers };
+
+			// const body = { initialResponses, user: userEmail, policy: policy.slug };
+
+			// const res = await fetch("http://localhost:3000/api/new-message", {
+			// 	body: JSON.stringify(body),
+			// 	method: "POST",
+			// });
+			// const data = await res.json();
+
+			const compiledAnser = `
+			 Hello, I want to get the best policies for myself, here are my details please provide a policy according to my need.
+
+			 ${answers
+					.filter(ans => ans.value !== "Skipped")
+					.map(ans => {
+						const question = QUESTIONS.find(q => q.id === ans.id);
+						return question ? `${question.title}: ${ans.value}` : "";
+					})
+					.filter(Boolean)
+					.join(". ")}
+			`;
+
+			const data = await createNewConversation(userEmail, policy.slug, compiledAnser);
+
+			if (!data) {
+				throw new Error("Conversation not created!");
+			}
+
+			toast.success("Conversation created!");
+		} catch (error) {
+			if (error instanceof Error) {
+				toast.error(error.message);
+			} else {
+				toast.error("Something went wrong!");
+			}
+		}
+	}, [policy.slug, userEmail, answers]);
+
+	useEffect(() => {
+		if (isQuestionsDone) {
+			onQuestionsDone();
+		}
+	}, [isQuestionsDone, onQuestionsDone]);
 
 	return (
 		<div ref={scrollRef} className="w-full py-4 space-y-6">
@@ -85,7 +126,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
 				))}
 			</AnimatePresence>
 
-			{!showResults && currentQuestion && (
+			{!isQuestionsDone && currentQuestion && (
 				<div className="space-y-4">
 					<div className="flex gap-2 items-center flex-wrap">
 						{currentQuestion.options.map(option => (
@@ -116,18 +157,6 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({}) => {
 						</motion.button>
 					</div>
 				</div>
-			)}
-
-			{showResults && (
-				<motion.div
-					className="text-center text-xl font-semibold py-4 rounded-lg shadow-lg text-gray-500"
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: 20 }}
-					transition={{ duration: 0.3 }}
-				>
-					Final Compilation: {compileAnswers() || "No answers provided."}
-				</motion.div>
 			)}
 
 			<div ref={endOfContentRef} />

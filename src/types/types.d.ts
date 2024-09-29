@@ -18,6 +18,7 @@ declare type AnswerOption = {
 declare type Question = {
 	id: string;
 	message: string;
+	title: string;
 	options: Option[];
 };
 

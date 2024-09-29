@@ -24,6 +24,7 @@ export const QUESTIONS: Question[] = [
 	{
 		id: "1",
 		message: "Select your age range:",
+		title: "Age Range",
 		options: [
 			{ id: "1", value: "18-25" },
 			{ id: "2", value: "26-35" },
@@ -34,6 +35,7 @@ export const QUESTIONS: Question[] = [
 	{
 		id: "2",
 		message: "Select your gender:",
+		title: "Gender",
 		options: [
 			{ id: "1", value: "Male" },
 			{ id: "2", value: "Female" },
@@ -43,6 +45,7 @@ export const QUESTIONS: Question[] = [
 	{
 		id: "3",
 		message: "Select your income range:",
+		title: "Income Range",
 		options: [
 			{ id: "1", value: "₹0 - ₹25,000" },
 			{ id: "2", value: "₹25,000 - ₹50,000" },

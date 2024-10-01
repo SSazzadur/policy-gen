@@ -26,12 +26,12 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 		>
 			{conversations.length > 0 ? (
 				<div className="flex flex-col items-center mb-10 w-full gap-10 px-5">
-					<div className="max-w-[730px] items-end flex w-full justify-between">
-						<h3 className="text-[1.75rem] font-semibold">All conversations</h3>
+					<div className="max-w-[730px] flex items-center w-full justify-between">
+						<h3 className="text-xl md:text-[1.75rem] font-semibold">All conversations</h3>
 
 						<Link href={`/${params.slug}/new`}>
 							<Button leftIcon={<Icons.MessageAddIcon />} className="font-semibold">
-								Start a conversation
+								<p className="hidden sm:block">Start a conversation</p>
 							</Button>
 						</Link>
 					</div>

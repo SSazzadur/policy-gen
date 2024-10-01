@@ -77,6 +77,22 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 		<div className="flex flex-col h-screen w-full">
 			<div ref={scrollRef} className="flex-1 overflow-y-auto py-4 space-y-6">
 				<AnimatePresence>
+					{initialResponse ? (
+						<motion.div
+							initial={{ opacity: 0, y: -20 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 20 }}
+							transition={{ duration: 0.3 }}
+							className="space-y-4"
+						>
+							<div className="flex">
+								<div className="rounded-3xl py-3 px-5 shadow-md max-w-md bg-accent rounded-ss-none">
+									{initialResponse}
+								</div>
+							</div>
+						</motion.div>
+					) : null}
+
 					{messages.map(message => (
 						<motion.div
 							key={message.id}
@@ -102,22 +118,6 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 							</div>
 						</motion.div>
 					))}
-
-					{initialResponse ? (
-						<motion.div
-							initial={{ opacity: 0, y: -20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 20 }}
-							transition={{ duration: 0.3 }}
-							className="space-y-4"
-						>
-							<div className="flex">
-								<div className="rounded-3xl py-3 px-5 shadow-md max-w-md bg-accent rounded-ss-none">
-									{initialResponse}
-								</div>
-							</div>
-						</motion.div>
-					) : null}
 
 					{isLoading ? (
 						<motion.div

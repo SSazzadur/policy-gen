@@ -10,6 +10,8 @@ And for your reference the JSON dataset is being attached below, please refer to
 Here is the dataset:
 
 ${JSON.stringify(data, null, 2)}
+
+Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms. 
 `;
 
 export const QUESTIONS: Question[] = [

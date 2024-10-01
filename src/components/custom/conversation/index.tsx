@@ -11,6 +11,10 @@ import { askGemini } from "@/actions/gemini";
 import { toast } from "sonner";
 import { saveMessages } from "@/actions/messages";
 
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+
 interface ConversationsProps {
 	history: Message[];
 	messages: Message[];
@@ -87,7 +91,13 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 						>
 							<div className="flex">
 								<div className="rounded-3xl py-3 px-5 shadow-md max-w-md bg-accent rounded-ss-none">
-									{initialResponse}
+									<Markdown
+										rehypePlugins={[rehypeRaw]}
+										remarkPlugins={[remarkGfm]}
+										className="space-y-4 text-justify"
+									>
+										{initialResponse}
+									</Markdown>
 								</div>
 							</div>
 						</motion.div>
@@ -113,7 +123,13 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 										"bg-accent rounded-ss-none": message.by === "model",
 									})}
 								>
-									{message.message}
+									<Markdown
+										rehypePlugins={[rehypeRaw]}
+										remarkPlugins={[remarkGfm]}
+										className="space-y-4 text-justify"
+									>
+										{message.message}
+									</Markdown>
 								</div>
 							</div>
 						</motion.div>

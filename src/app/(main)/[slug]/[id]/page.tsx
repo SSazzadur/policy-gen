@@ -12,8 +12,6 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 	let initialResponse = { result: "" };
 
 	if (conversation.messages.length === 1) {
-		console.log("here");
-
 		initialResponse = await askGemini(
 			conversation.messages[conversation.messages.length - 1].message,
 			conversation.messages.slice(0, -1)

@@ -2,7 +2,9 @@ import { Content } from "@google/generative-ai";
 import { Message } from "@prisma/client";
 
 export const askGemini = async (text: string, messages: Message[]) => {
-	const url = "http://localhost:3000/api/generate";
+	const baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.APP_URL;
+
+	const url = `${baseURL}/api/generate`;
 
 	const history: Content[] = messages.map(message => ({
 		parts: [{ text: message.message }],

@@ -8,6 +8,7 @@ declare type Policy = {
 	name: string;
 	body: string;
 	icon: string;
+	questions: Question[];
 };
 
 declare type AnswerOption = {

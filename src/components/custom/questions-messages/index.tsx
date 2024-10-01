@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, FC, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { QUESTIONS } from "@/lib/constants";
 import { toast } from "sonner";
 import { createNewConversation } from "@/actions/conversations";
 
@@ -18,7 +17,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const endOfContentRef = useRef<HTMLDivElement>(null);
 
-	const currentQuestion = QUESTIONS[currentQuestionIndex];
+	const currentQuestion = policy?.questions[currentQuestionIndex];
 
 	useEffect(() => {
 		if (endOfContentRef.current) {
@@ -31,13 +30,8 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 		nextQuestion();
 	};
 
-	const handleSkip = () => {
-		setAnswers([...answers, { id: currentQuestion.id, value: "Skipped" }]);
-		nextQuestion();
-	};
-
 	const nextQuestion = () => {
-		if (currentQuestionIndex < QUESTIONS.length - 1) {
+		if (currentQuestionIndex < policy?.questions.length - 1) {
 			setCurrentQuestionIndex(currentQuestionIndex + 1);
 		} else {
 			setIsQuestionsDone(true);
@@ -46,34 +40,20 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 
 	const onQuestionsDone = useCallback(async () => {
 		try {
-			// const initialResponses = { questions: QUESTIONS, answers: answers };
-
-			// const body = { initialResponses, user: userEmail, policy: policy.slug };
-
-			// const res = await fetch("http://localhost:3000/api/new-message", {
-			// 	body: JSON.stringify(body),
-			// 	method: "POST",
-			// });
-			// const data = await res.json();
-
 			const compiledAnser = `
-			 Hello, I want to get the best policies for myself, here are my details please provide a policy according to my need.
-
+			Based on the following properties:
 			 ${answers
-					.filter(ans => ans.value !== "Skipped")
 					.map(ans => {
-						const question = QUESTIONS.find(q => q.id === ans.id);
+						const question = policy?.questions.find(q => q.id === ans.id);
 						return question ? `${question.title}: ${ans.value}` : "";
 					})
 					.filter(Boolean)
-					.join(". ")}
+					.join(", ")};
+
+			Identify the best policy from the dataset that aligns with these criteria.
 			`;
 
-			const data = await createNewConversation(userEmail, policy.slug, compiledAnser);
-
-			if (!data) {
-				throw new Error("Conversation not created!");
-			}
+			await createNewConversation(userEmail, policy.slug, compiledAnser);
 
 			toast.success("Conversation created!");
 		} catch (error) {
@@ -83,7 +63,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 				toast.error("Something went wrong!");
 			}
 		}
-	}, [policy.slug, userEmail, answers]);
+	}, [policy.slug, policy.questions, userEmail, answers]);
 
 	useEffect(() => {
 		if (isQuestionsDone) {
@@ -94,7 +74,7 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 	return (
 		<div ref={scrollRef} className="w-full py-4 space-y-6">
 			<AnimatePresence>
-				{QUESTIONS.slice(0, currentQuestionIndex + 1).map((question, idx) => (
+				{policy?.questions.slice(0, currentQuestionIndex + 1).map((question, idx) => (
 					<motion.div
 						key={question.id}
 						initial={{ opacity: 0, y: -20 }}
@@ -142,19 +122,6 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 								{option.value}
 							</motion.button>
 						))}
-					</div>
-
-					<div className="flex justify-center pt-2">
-						<motion.button
-							onClick={handleSkip}
-							className="text-gray-500 underline hover:text-gray-700"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.2 }}
-						>
-							Skip
-						</motion.button>
 					</div>
 				</div>
 			)}

@@ -40,7 +40,7 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 						{conversations.map(({ id, title, createdAt }) => (
 							<li
 								key={id}
-								className="flex items-center justify-between gap-4 rounded-lg bg-doc bg-cover p-5 shadow-xl"
+								className="bg-background flex justify-between gap-3 cursor-pointer hover:bg-accent ring-1 ring-accent rounded-lg p-4 h-full transition-colors duration-300"
 							>
 								<Link href={`/${params.slug}/${id}`} className="flex flex-1 items-center gap-4">
 									<div className="hidden rounded-md bg-secondary p-2 sm:block">
@@ -56,7 +56,7 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 								</Link>
 
 								{/* TODO: Add delete button */}
-								{/* <DeleteModal roomId={id} /> */}
+								{/* <DeleteModal conversationId={id} /> */}
 							</li>
 						))}
 					</ul>

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
 import db from "@/lib/db";
+import { UpdateTitleSchema } from "@/validations/conversation";
 import { User } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -63,4 +65,29 @@ export const getConversation = async (id: string) => {
 	});
 
 	return conversations;
+};
+
+export const deleteConversation = async (id: string) => {
+	const conversation = await db.conversation.delete({
+		where: { id: id },
+	});
+
+	return conversation;
+};
+
+export const updateConversationTitle = async (id: string, path: string, prevState: unknown, formData: FormData) => {
+	const result = UpdateTitleSchema.safeParse(Object.fromEntries(formData));
+
+	if (!result.success) {
+		return result.error.formErrors.fieldErrors;
+	}
+
+	const data = result.data;
+
+	await db.conversation.update({
+		where: { id: id },
+		data: { title: data.title },
+	});
+
+	revalidatePath(path);
 };

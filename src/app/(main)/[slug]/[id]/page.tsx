@@ -7,7 +7,7 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 	if (!conversation) return notFound();
 
 	return (
-		<Layout title={conversation.title} className="container">
+		<Layout title={conversation.title} editTitle id={params.id} className="container" back>
 			<h1>ConversationPage</h1>
 		</Layout>
 	);

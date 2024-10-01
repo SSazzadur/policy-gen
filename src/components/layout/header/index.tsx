@@ -5,13 +5,16 @@ import { Button } from "@/components/custom/button";
 import { Icons } from "@/components/icons";
 
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import EditModal from "@/components/custom/edit-modal";
 
 interface NavbarProps {
 	title: string;
 	back?: boolean;
+	editTitle?: boolean;
+	id?: string;
 }
 
-const Header = ({ title, back }: NavbarProps) => {
+const Header = ({ title, back, editTitle, id }: NavbarProps) => {
 	const router = useRouter();
 
 	return (
@@ -22,7 +25,10 @@ const Header = ({ title, back }: NavbarProps) => {
 
 					{back && <Button size="icon" onClick={() => router.back()} leftIcon={<Icons.ArrowLeftIcon />} />}
 
-					<h1 className="font-bold">{title}</h1>
+					<div className="flex items-center gap-4">
+						<h1 className="font-bold">{title}</h1>
+						{editTitle && id ? <EditModal id={id} title={title} /> : null}
+					</div>
 				</div>
 				<div className="flex flex-1 items-center gap-x-2 justify-end">
 					{/* <ModeToggle /> */}

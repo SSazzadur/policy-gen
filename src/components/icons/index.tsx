@@ -1,4 +1,15 @@
-import { ArrowLeftIcon, FileIcon, Loader2, MessageSquareDiff, MoonIcon, PlusIcon, SunIcon } from "lucide-react";
+import {
+	ArrowLeftIcon,
+	DeleteIcon,
+	EditIcon,
+	FileIcon,
+	Loader2,
+	MessageSquareDiff,
+	MoonIcon,
+	PlusIcon,
+	SunIcon,
+	TrashIcon,
+} from "lucide-react";
 
 export const Icons = {
 	ArrowLeftIcon,
@@ -8,6 +19,9 @@ export const Icons = {
 	FileIcon,
 	PlusIcon,
 	MessageAddIcon: MessageSquareDiff,
+	DeleteIcon,
+	TrashIcon,
+	EditIcon,
 };
 
 export type Icon = keyof typeof Icons;

@@ -7,6 +7,7 @@ import {
 	MessageSquareDiff,
 	MoonIcon,
 	PlusIcon,
+	SendIcon,
 	SunIcon,
 	TrashIcon,
 } from "lucide-react";
@@ -22,6 +23,7 @@ export const Icons = {
 	DeleteIcon,
 	TrashIcon,
 	EditIcon,
+	SendIcon,
 };
 
 export type Icon = keyof typeof Icons;

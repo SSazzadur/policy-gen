@@ -10,11 +10,12 @@ import EditModal from "@/components/custom/edit-modal";
 interface NavbarProps {
 	title: string;
 	back?: boolean;
+	leftIcon?: React.ReactNode;
 	editTitle?: boolean;
 	id?: string;
 }
 
-const Header = ({ title, back, editTitle, id }: NavbarProps) => {
+const Header = ({ title, back, leftIcon, editTitle, id }: NavbarProps) => {
 	const router = useRouter();
 
 	return (
@@ -23,7 +24,11 @@ const Header = ({ title, back, editTitle, id }: NavbarProps) => {
 				<div className="flex items-center gap-x-4">
 					{/* <SheetMenu /> */}
 
-					{back && <Button size="icon" onClick={() => router.back()} leftIcon={<Icons.ArrowLeftIcon />} />}
+					{back ? (
+						<Button size="icon" onClick={() => router.back()} leftIcon={<Icons.ArrowLeftIcon />} />
+					) : leftIcon ? (
+						leftIcon
+					) : null}
 
 					<div className="flex items-center gap-4">
 						<h1 className="font-bold">{title}</h1>

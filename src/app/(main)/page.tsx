@@ -5,7 +5,7 @@ import PolicyCard from "@/components/custom/policy-card";
 
 const HomePage = async () => {
 	return (
-		<Layout title="Home" className="container flex flex-col gap-14 items-center justify-center">
+		<Layout title={APP_NAME} className="container flex flex-col gap-14 items-center justify-center">
 			<div className="flex flex-col items-center">
 				<Image src="/assets/images/logo.png" alt="Logo" width={150} height={150} />
 				<h1 className="text-2xl font-semibold mt-4">

@@ -6,14 +6,15 @@ interface ContentLayoutProps {
 	children: React.ReactNode;
 	className?: string;
 	back?: boolean;
+	leftIcon?: React.ReactNode;
 	editTitle?: boolean;
 	id?: string;
 }
 
-const Layout = ({ title, children, className, back, editTitle, id }: ContentLayoutProps) => {
+const Layout = ({ title, children, className, back, leftIcon, editTitle, id }: ContentLayoutProps) => {
 	return (
 		<div className="space-y-4">
-			<Header title={title} back={back} editTitle={editTitle} id={id} />
+			<Header title={title} back={back} leftIcon={leftIcon} editTitle={editTitle} id={id} />
 			<div className={cn("min-h-[calc(100svh-8rem)]", className)}>{children}</div>
 		</div>
 	);

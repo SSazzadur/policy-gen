@@ -1,6 +1,7 @@
 import { getConversation } from "@/actions/conversations";
 import { askGemini } from "@/actions/gemini";
 import { saveMessage } from "@/actions/messages";
+import BackToPolicyButton from "@/components/custom/back-to-policy-button";
 import Conversations from "@/components/custom/conversation";
 import Layout from "@/components/layout";
 import { notFound } from "next/navigation";
@@ -23,7 +24,13 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 	}
 
 	return (
-		<Layout title={conversation.title} editTitle id={params.id} className="container" back>
+		<Layout
+			title={conversation.title}
+			editTitle
+			id={params.id}
+			className="container"
+			leftIcon={<BackToPolicyButton path={conversation.policy} />}
+		>
 			<Conversations
 				history={conversation.messages}
 				messages={conversation.messages.slice(1)}

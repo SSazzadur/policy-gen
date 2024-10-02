@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Message } from "@prisma/client";
+import { Conversation, Message } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { Button } from "../button";
 import { Icons } from "@/components/icons";
@@ -19,10 +19,10 @@ interface ConversationsProps {
 	history: Message[];
 	messages: Message[];
 	initialResponse: string;
-	conversationId: string;
+	conversation: Conversation;
 }
 
-const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessages, initialResponse, conversationId }) => {
+const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessages, initialResponse, conversation }) => {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
 	const [newMessage, setNewMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 					message: newMessage,
 					by: "user",
 					createdAt: new Date(),
-					conversationId: conversationId,
+					conversationId: conversation.id,
 				};
 				const updatedMessages = [...messages, newMsg];
 				setMessages(updatedMessages);
@@ -61,13 +61,13 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 						message: response.result,
 						by: "model",
 						createdAt: new Date(),
-						conversationId: conversationId,
+						conversationId: conversation.id,
 					};
 
 					const allMessages = [...updatedMessages, newResponse];
 					setMessages(allMessages);
 
-					await saveMessages([newMsg, newResponse]);
+					await saveMessages([newMsg, newResponse], conversation);
 				}
 			}
 		} catch (error) {

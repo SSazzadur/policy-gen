@@ -37,7 +37,7 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 					</div>
 
 					<ul className="flex w-full max-w-[730px] flex-col gap-5">
-						{conversations.map(({ id, title, createdAt }) => (
+						{conversations.map(({ id, title, updatedAt, createdAt }) => (
 							<li
 								key={id}
 								className="bg-background flex justify-between gap-3 cursor-pointer hover:bg-accent ring-1 ring-accent rounded-lg p-4 h-full transition-colors duration-300"
@@ -50,7 +50,9 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 									<div className="spacey-y-1">
 										<p className="line-clamp-1 text-lg">{title}</p>
 										<p className="text-sm font-light text-muted-foreground">
-											Created about {dateConverter(createdAt)}
+											{updatedAt
+												? `Updated about ${dateConverter(updatedAt)}`
+												: `Created about ${dateConverter(createdAt)}`}
 										</p>
 									</div>
 								</Link>

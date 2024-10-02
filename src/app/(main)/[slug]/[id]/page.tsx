@@ -16,10 +16,10 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 			conversation.messages[conversation.messages.length - 1].message,
 			conversation.messages.slice(0, -1)
 		);
-	}
 
-	if (conversation.messages.length === 1 && initialResponse?.result) {
-		await saveMessage(initialResponse.result, "model", params.id);
+		if (initialResponse.result) {
+			await saveMessage(initialResponse.result, "model", params.id);
+		}
 	}
 
 	return (
@@ -28,7 +28,7 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 				history={conversation.messages}
 				messages={conversation.messages.slice(1)}
 				initialResponse={(initialResponse && initialResponse.result) || ""}
-				conversationId={params.id}
+				conversation={conversation}
 			/>
 		</Layout>
 	);

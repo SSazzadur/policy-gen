@@ -2,7 +2,8 @@
 "use server";
 
 import db from "@/lib/db";
-import { Message } from "@prisma/client";
+import { Conversation, Message } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const saveMessage = async (message: string, by: "user" | "model", conversationId: string) => {
 	const newMessage = await db.message.create({
@@ -16,7 +17,7 @@ export const saveMessage = async (message: string, by: "user" | "model", convers
 	return newMessage;
 };
 
-export const saveMessages = async (messages: Message[]) => {
+export const saveMessages = async (messages: Message[], conversation: Conversation) => {
 	const data = messages.map(message => ({
 		message: message.message,
 		by: message.by,
@@ -24,4 +25,13 @@ export const saveMessages = async (messages: Message[]) => {
 	}));
 
 	await db.message.createMany({ data });
+
+	await db.conversation.update({
+		where: { id: conversation.id },
+		data: {
+			updatedAt: new Date(),
+		},
+	});
+
+	revalidatePath(`/${conversation.policy}`);
 };

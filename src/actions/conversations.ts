@@ -48,7 +48,7 @@ export const getConversationsList = async (user: User, policy: Policy) => {
 			policy: policy.slug,
 		},
 		orderBy: {
-			createdAt: "desc",
+			updatedAt: "desc",
 		},
 	});
 

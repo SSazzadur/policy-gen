@@ -24,13 +24,7 @@ const ConversationPage = async ({ params }: SearchParamProps) => {
 	}
 
 	return (
-		<Layout
-			title={conversation.title}
-			editTitle
-			id={params.id}
-			className="container"
-			leftIcon={<BackToPolicyButton path={conversation.policy} />}
-		>
+		<Layout title={conversation.title} editTitle id={params.id} className="container" leftIcon={<BackToPolicyButton />}>
 			<Conversations
 				history={conversation.messages}
 				messages={conversation.messages.slice(1)}

@@ -17,12 +17,13 @@ import { Button } from "../button";
 import { deleteConversation } from "@/actions/conversations";
 import { toast } from "sonner";
 import { Icons } from "@/components/icons";
+import { Conversation } from "@prisma/client";
 
 interface DeleteModalProps {
-	conversationId: string;
+	conversation: Conversation;
 }
 
-export const DeleteModal: FC<DeleteModalProps> = ({ conversationId }) => {
+export const DeleteModal: FC<DeleteModalProps> = ({ conversation }) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 
@@ -30,7 +31,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ conversationId }) => {
 		setLoading(true);
 
 		try {
-			await deleteConversation(conversationId);
+			await deleteConversation(conversation);
 
 			toast.success("Conversation deleted successfully!");
 			setOpen(false);

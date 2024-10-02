@@ -2,17 +2,12 @@
 
 import { FC } from "react";
 import { Button } from "../button";
-import { useRouter } from "next/navigation";
 import { Icons } from "@/components/icons";
 
-interface BackToPolicyButtonProps {
-	path: string;
-}
+interface BackToPolicyButtonProps {}
 
-const BackToPolicyButton: FC<BackToPolicyButtonProps> = ({ path }) => {
-	const router = useRouter();
-
-	return <Button size="icon" onClick={() => router.replace(`/${path}`)} leftIcon={<Icons.ArrowLeftIcon />} />;
+const BackToPolicyButton: FC<BackToPolicyButtonProps> = ({}) => {
+	return <Button size="icon" onClick={() => window.history.go(-2)} leftIcon={<Icons.ArrowLeftIcon />} />;
 };
 
 export default BackToPolicyButton;

@@ -4,6 +4,7 @@
 import db from "@/lib/db";
 import { UpdateTitleSchema } from "@/validations/conversation";
 import { User } from "@clerk/nextjs/server";
+import { Conversation } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -70,12 +71,12 @@ export const getConversation = async (id: string) => {
 	return conversations;
 };
 
-export const deleteConversation = async (id: string) => {
-	const conversation = await db.conversation.delete({
-		where: { id: id },
+export const deleteConversation = async (conversation: Conversation) => {
+	await db.conversation.delete({
+		where: { id: conversation.id },
 	});
 
-	return conversation;
+	revalidatePath(`/${conversation.policy}`);
 };
 
 export const updateConversationTitle = async (id: string, path: string, prevState: unknown, formData: FormData) => {

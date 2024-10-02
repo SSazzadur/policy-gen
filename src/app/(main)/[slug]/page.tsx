@@ -1,5 +1,6 @@
 import { getConversationsList } from "@/actions/conversations";
 import { Button } from "@/components/custom/button";
+import { DeleteModal } from "@/components/custom/delete-modal";
 import { Icons } from "@/components/icons";
 import Layout from "@/components/layout";
 import { POLICIES } from "@/lib/constants";
@@ -37,28 +38,27 @@ const PolicyDetails = async ({ params }: SearchParamProps) => {
 					</div>
 
 					<ul className="flex w-full max-w-[730px] flex-col gap-5">
-						{conversations.map(({ id, title, updatedAt, createdAt }) => (
+						{conversations.map(conversation => (
 							<li
-								key={id}
+								key={conversation.id}
 								className="bg-background flex justify-between gap-3 cursor-pointer hover:bg-accent ring-1 ring-accent rounded-lg p-4 h-full transition-colors duration-300"
 							>
-								<Link href={`/${params.slug}/${id}`} className="flex flex-1 items-center gap-4">
+								<Link href={`/${params.slug}/${conversation.id}`} className="flex flex-1 items-center gap-4">
 									<div className="hidden rounded-md bg-secondary p-2 sm:block">
 										<Icons.FileIcon />
 									</div>
 
 									<div className="spacey-y-1">
-										<p className="line-clamp-1 text-lg">{title}</p>
+										<p className="line-clamp-1 text-lg">{conversation.title}</p>
 										<p className="text-sm font-light text-muted-foreground">
-											{updatedAt
-												? `Updated about ${dateConverter(updatedAt)}`
-												: `Created about ${dateConverter(createdAt)}`}
+											{conversation.updatedAt
+												? `Updated about ${dateConverter(conversation.updatedAt)}`
+												: `Created about ${dateConverter(conversation.createdAt)}`}
 										</p>
 									</div>
 								</Link>
 
-								{/* TODO: Add delete button */}
-								{/* <DeleteModal conversationId={id} /> */}
+								<DeleteModal conversation={conversation} />
 							</li>
 						))}
 					</ul>

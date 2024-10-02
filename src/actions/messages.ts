@@ -17,7 +17,7 @@ export const saveMessage = async (message: string, by: "user" | "model", convers
 	return newMessage;
 };
 
-export const saveMessages = async (messages: Message[], conversation: Conversation) => {
+export const saveMessages = async (messages: Message[], conversation: Conversation, revalidate: boolean) => {
 	const data = messages.map(message => ({
 		message: message.message,
 		by: message.by,
@@ -33,5 +33,8 @@ export const saveMessages = async (messages: Message[], conversation: Conversati
 		},
 	});
 
-	revalidatePath(`/${conversation.policy}`);
+	if (revalidate) {
+		revalidatePath(`/${conversation.policy}`);
+		revalidatePath(`/${conversation.policy}/${conversation.id}`);
+	}
 };

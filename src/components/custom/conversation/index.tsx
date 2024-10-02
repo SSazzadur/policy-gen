@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, FC } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Conversation, Message } from "@prisma/client";
-import { cn } from "@/lib/utils";
 import { Button } from "../button";
 import { Icons } from "@/components/icons";
 import { Input } from "@/components/ui/input";
@@ -11,15 +10,14 @@ import { askGemini } from "@/actions/gemini";
 import { toast } from "sonner";
 import { saveMessages } from "@/actions/messages";
 
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
+import FlatList from "../flatlist";
+import ChatBubble from "./chat-bubble";
 
 interface ConversationsProps {
 	history: Message[];
 	messages: Message[];
 	initialResponse: string;
-	conversation: Conversation;
+	conversation: Conversation & { messages: Message[] };
 }
 
 const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessages, initialResponse, conversation }) => {
@@ -64,11 +62,10 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 						conversationId: conversation.id,
 					};
 
-					const allMessages = [...updatedMessages, newResponse];
-					setMessages(allMessages);
+					setMessages([...updatedMessages, newResponse]);
 					setIsLoading(false);
 
-					await saveMessages([newMsg, newResponse], conversation);
+					await saveMessages([newMsg, newResponse], conversation, !initialResponse);
 				}
 			}
 		} catch (error) {
@@ -78,79 +75,23 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 		}
 	};
 
+	useEffect(() => {
+		console.log("messages", messages);
+	}, [messages]);
+
 	return (
 		<div className="flex flex-col h-screen w-full">
 			<div ref={scrollRef} className="flex-1 overflow-y-auto py-4 space-y-6">
 				<AnimatePresence>
-					{initialResponse ? (
-						<motion.div
-							initial={{ opacity: 0, y: -20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 20 }}
-							transition={{ duration: 0.3 }}
-							className="space-y-4"
-						>
-							<div className="flex">
-								<div className="rounded-3xl py-3 px-5 shadow-md max-w-4xl bg-accent rounded-ss-none">
-									<Markdown
-										rehypePlugins={[rehypeRaw]}
-										remarkPlugins={[remarkGfm]}
-										className="space-y-4 text-justify"
-									>
-										{initialResponse}
-									</Markdown>
-								</div>
-							</div>
-						</motion.div>
-					) : null}
+					{initialResponse ? <ChatBubble author="model" message={initialResponse} /> : null}
 
-					{messages.map(message => (
-						<motion.div
-							key={message.id}
-							initial={{ opacity: 0, y: -20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 20 }}
-							transition={{ duration: 0.3 }}
-							className="space-y-4"
-						>
-							<div
-								className={cn("flex", {
-									"justify-end": message.by === "user",
-								})}
-							>
-								<div
-									className={cn("rounded-3xl py-3 px-5 shadow-md max-w-4xl", {
-										"bg-background ring-1 ring-accent ring-inset rounded-ee-none": message.by === "user",
-										"bg-accent rounded-ss-none": message.by === "model",
-									})}
-								>
-									<Markdown
-										rehypePlugins={[rehypeRaw]}
-										remarkPlugins={[remarkGfm]}
-										className="space-y-4 text-justify"
-									>
-										{message.message}
-									</Markdown>
-								</div>
-							</div>
-						</motion.div>
-					))}
+					<FlatList
+						data={messages}
+						keyExtractor={message => message.id}
+						renderItem={item => <ChatBubble author={item.by} message={item.message} />}
+					/>
 
-					{isLoading ? (
-						<motion.div
-							initial={{ opacity: 0, y: -20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 20 }}
-							transition={{ duration: 0.3 }}
-							className="space-y-4"
-						>
-							<div className="flex">
-								<div className="rounded-3xl py-3 px-5 shadow-md max-w-4xl bg-accent rounded-ss-none">
-									<p className="animate-pulse">Thinking 🤔 ...</p>
-								</div>
-							</div>
-						</motion.div>
-					) : null}
+					{isLoading ? <ChatBubble author="model" message="Thinking 🤔 ..." isLoading={isLoading} /> : null}
 				</AnimatePresence>
 
 				<div className="h-20" ref={endOfContentRef} />

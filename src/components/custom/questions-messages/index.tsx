@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, FC, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { createNewConversation } from "@/actions/conversations";
+import { Icons } from "@/components/icons";
 
 interface QuestionsMessagesProps {
 	userEmail: string;
@@ -14,6 +15,8 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [answers, setAnswers] = useState<AnswerOption[]>([]);
 	const [isQuestionsDone, setIsQuestionsDone] = useState<boolean>(false);
+	const [isCreatingConversation, setIsCreatingConversation] = useState<boolean>(false);
+
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const endOfContentRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +42,8 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 	};
 
 	const onQuestionsDone = useCallback(async () => {
+		setIsCreatingConversation(true);
+
 		try {
 			const compiledAnser = `
 			Based on the following properties:
@@ -57,11 +62,9 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 
 			toast.success("Conversation created!");
 		} catch (error) {
-			if (error instanceof Error) {
-				toast.error(error.message);
-			} else {
-				toast.error("Something went wrong!");
-			}
+			toast.error("Something went wrong!");
+		} finally {
+			setIsCreatingConversation(false);
 		}
 	}, [policy.slug, policy.questions, userEmail, answers]);
 
@@ -126,7 +129,21 @@ const QuestionsMessages: FC<QuestionsMessagesProps> = ({ userEmail, policy }) =>
 				</div>
 			)}
 
-			<div ref={endOfContentRef} />
+			{isCreatingConversation && (
+				<>
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.3 }}
+						className="flex items-center justify-center"
+					>
+						<Icons.LoadingIcon2 className="w-8 h-auto" />
+					</motion.div>
+				</>
+			)}
+
+			<div className="h-10" ref={endOfContentRef} />
 		</div>
 	);
 };

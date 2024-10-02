@@ -21,7 +21,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 			>
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 					{children}
-					<Toaster />
+					<Toaster position="top-right" />
 				</ThemeProvider>
 			</ClerkProvider>
 		</StoreProvider>

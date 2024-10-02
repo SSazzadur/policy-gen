@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PolicyGen
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project provides personalized policy recommendations in four key areas: **financial**, **health**, **life insurance**, and **investment**. The system evaluates user inputs and suggests the best policies based on their personal details. The recommendation engine asks follow-up questions to refine the results further, ensuring the most suitable policy options are provided.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Personalized Policy Suggestions:** The system evaluates user-specific data and offers recommendations tailored to their needs.
+-   **Dynamic Questioning:** After an initial recommendation, follow-up questions are asked to refine policy options.
+-   **Comprehensive Policy Categories:** Covers a broad range of policy types including financial, health, life insurance, and investment policies.
+-   **History Tracking:** The system keeps track of the conversation history for better accuracy in refining recommendations.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Frontend & Backend:** Developed using **NextJS14** for fast, efficient, and scalable site and backend operations.
+-   **Database Management:** Utilizes **MongoDB** for storing user data and recommendations, with **Prisma ORM** for seamless database querying and management.
+-   **Authentication:** User authentication and session management are handled via **Clerk** for secure and efficient access control.
+-   **AI Integration:** Leverages the **`@google/generative-ai` package** for integrating the **Gemini API**, which enhances the recommendation engine with advanced machine learning capabilities.
 
-## Learn More
+## How It Works
 
-To learn more about Next.js, take a look at the following resources:
+1. **User Registration & Login:** Users authenticate via Clerk to access the platform.
+2. **Initial Data Input:** Users provide basic information about their needs (e.g., type of policy, age, income).
+3. **Policy Recommendations:** The system analyzes the data and suggests an initial set of policies.
+4. **Follow-up Questions:** Based on user responses, the system asks additional questions to better understand their needs and refine suggestions.
+5. **Final Recommendation:** Users receive a set of policy options, ranked according to their preferences and needs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is created and maintained by:
 
-## Deploy on Vercel
+-   **Achintam Kalita**
+-   **Abbash Ali**
+-   **Sazzadur Rahman**
+-   **Kukil Bharadwaj**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Website
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit the live platform: [Site](https://policy-gen.vercel.app)
+
+## Demonstration
+
+Watch the YouTube demo here: [Video](https://youtu.be/gNpXbHOT5Hs)

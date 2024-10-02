@@ -66,6 +66,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 
 					const allMessages = [...updatedMessages, newResponse];
 					setMessages(allMessages);
+					setIsLoading(false);
 
 					await saveMessages([newMsg, newResponse], conversation);
 				}
@@ -90,7 +91,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 							className="space-y-4"
 						>
 							<div className="flex">
-								<div className="rounded-3xl py-3 px-5 shadow-md max-w-md bg-accent rounded-ss-none">
+								<div className="rounded-3xl py-3 px-5 shadow-md max-w-4xl bg-accent rounded-ss-none">
 									<Markdown
 										rehypePlugins={[rehypeRaw]}
 										remarkPlugins={[remarkGfm]}
@@ -118,7 +119,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 								})}
 							>
 								<div
-									className={cn("rounded-3xl py-3 px-5 shadow-md max-w-md", {
+									className={cn("rounded-3xl py-3 px-5 shadow-md max-w-4xl", {
 										"bg-background ring-1 ring-accent ring-inset rounded-ee-none": message.by === "user",
 										"bg-accent rounded-ss-none": message.by === "model",
 									})}
@@ -144,7 +145,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 							className="space-y-4"
 						>
 							<div className="flex">
-								<div className="rounded-3xl py-3 px-5 shadow-md max-w-md bg-accent rounded-ss-none">
+								<div className="rounded-3xl py-3 px-5 shadow-md max-w-4xl bg-accent rounded-ss-none">
 									<p className="animate-pulse">Thinking 🤔 ...</p>
 								</div>
 							</div>
@@ -162,10 +163,15 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 						value={newMessage}
 						onChange={e => setNewMessage(e.target.value)}
 						placeholder="Type a message..."
-						className="flex-1 h-12 shadow-sm rounded-e-none"
+						className="flex-1 h-14 shadow-sm rounded-e-none focus-within:ring-0"
 					/>
 
-					<Button className="h-12 w-20 rounded-s-none" leftIcon={<Icons.SendIcon />} type="submit" />
+					<Button
+						isLoading={isLoading}
+						className="h-14 w-20 rounded-s-none"
+						leftIcon={<Icons.SendIcon />}
+						type="submit"
+					/>
 				</form>
 			</div>
 		</div>

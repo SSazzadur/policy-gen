@@ -17,13 +17,7 @@ export const createNewConversation = async (userEmail: string, policy: string, i
 		},
 	});
 
-	// console.log("conversation", conversation);
-
-	// if (!Object.keys(conversation).length) {
-	// 	throw new Error("Conversation not created!");
-	// }
-
-	const message = await db.message.create({
+	await db.message.create({
 		data: {
 			conversationId: conversation.id,
 			by: "user",
@@ -31,12 +25,6 @@ export const createNewConversation = async (userEmail: string, policy: string, i
 			createdAt: new Date(),
 		},
 	});
-
-	// console.log("message", message);
-
-	// if (!message) {
-	// 	throw new Error("Message not created!");
-	// }
 
 	revalidatePath(`/${policy}`);
 	redirect(`/${policy}/${conversation.id}`);

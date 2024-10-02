@@ -75,10 +75,6 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 		}
 	};
 
-	useEffect(() => {
-		console.log("messages", messages);
-	}, [messages]);
-
 	return (
 		<div className="flex flex-col h-screen w-full">
 			<div ref={scrollRef} className="flex-1 overflow-y-auto py-4 space-y-6">

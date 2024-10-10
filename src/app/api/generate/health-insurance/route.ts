@@ -13,7 +13,7 @@ const model = genAI.getGenerativeModel({
 	systemInstruction: SYSTEM_INSTRUCTION_FOR_HEALTH_INSURANCE,
 });
 
-export const generationConfig: GenerationConfig = {
+const generationConfig: GenerationConfig = {
 	temperature: 0.5,
 	topP: 0.95,
 	topK: 64,

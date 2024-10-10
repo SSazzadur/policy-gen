@@ -41,4 +41,4 @@ Visit the live platform: [Site](https://policy-gen.vercel.app)
 
 ## Demonstration
 
-Watch the YouTube demo here: [Video](https://youtu.be/gNpXbHOT5Hs)
+Watch the demo here: [Video](https://drive.google.com/file/d/1p9jI-imS_1jJLPs9QIs6whYMq9zhfr1k/view?usp=sharing)

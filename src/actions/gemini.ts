@@ -1,10 +1,14 @@
 import { Content } from "@google/generative-ai";
 import { Message } from "@prisma/client";
 
-export const askGemini = async (text: string, messages: Message[]) => {
-	const baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://policy-gen.vercel.app";
+export const askGemini = async (text: string, messages: Message[], policyType: PolicyType) => {
+	const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 
-	const url = `${baseURL}/api/generate`;
+	console.log("baseURL", baseURL);
+
+	const url = `${baseURL}/api/generate/${policyType}`;
+
+	console.log("url", url);
 
 	const history: Content[] = messages.map(message => ({
 		parts: [{ text: message.message }],

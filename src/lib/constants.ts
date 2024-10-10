@@ -1,15 +1,27 @@
-import { data } from "./data";
+import { HEALTH_INSURANCE_DATA, TERM_LIFE_INSURANCE_DATA } from "./data";
 
 export const APP_NAME = "PolicyGen";
 
-export const SYSTEM_INSTRUCTION = `You are an expert policy advisor, specializing in health and life insurance policies. You analyze personal details and suggest the best policy options. After making a recommendation, you automatically ask follow-up questions and use the answers to refine further suggestions, always keeping track of the conversation's history.
+export const SYSTEM_INSTRUCTION_FOR_HEALTH_INSURANCE = `You are an expert insurance policy advisor, specializing in health and life insurance policies. You analyze personal details and suggest the best policy options. After making a recommendation, you automatically ask follow-up questions and use the answers to refine further suggestions, always keeping track of the conversation's history.
+
+Your name is ${APP_NAME}.
+
+And for your reference the JSON dataset is being attached below, please refer to it.
+Here is the dataset:
+
+${JSON.stringify(HEALTH_INSURANCE_DATA, null, 2)}
+
+Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms. 
+`;
+
+export const SYSTEM_INSTRUCTION_FOR_TERM_LIFE_INSURANCE = `You are an expert insurance policy advisor, specializing in health and life insurance policies. You analyze personal details and suggest the best policy options. After making a recommendation, you automatically ask follow-up questions and use the answers to refine further suggestions, always keeping track of the conversation's history.
 
 Your name is ${APP_NAME}.
 
 And for your reference the JSON dataset is being attached below, please refer to it. The dataset has input parameters and corresponding outputs.
 Here is the dataset:
 
-${JSON.stringify(data, null, 2)}
+${JSON.stringify(TERM_LIFE_INSURANCE_DATA, null, 2)}
 
 Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms. 
 `;
@@ -59,19 +71,6 @@ export const QUESTIONS: Question[] = [
 	},
 	{
 		id: "5",
-		message:
-			"How important is the customer rating of the insurance provider to you? (On a scale of 1-5, with 5 being very important)",
-		title: "Customer Rating Importance",
-		options: [
-			{ id: "1", value: "1" },
-			{ id: "2", value: "2" },
-			{ id: "3", value: "3" },
-			{ id: "4", value: "4" },
-			{ id: "5", value: "5" },
-		],
-	},
-	{
-		id: "6",
 		message: "What is your preferred claim process?",
 		title: "Claim Process",
 		options: [
@@ -80,13 +79,49 @@ export const QUESTIONS: Question[] = [
 		],
 	},
 	{
-		id: "7",
+		id: "6",
 		message: "What is your preferred policy renewal term?",
 		title: "Policy Renewal Term",
 		options: [
 			{ id: "1", value: "Short-term (3-5 years)" },
 			{ id: "2", value: "Medium-term (10-15 years)" },
 			{ id: "3", value: "Long-term (20+ years)" },
+		],
+	},
+];
+
+export const MEDICAL_QUESTIONS: Question[] = [
+	{
+		id: "100",
+		message: "Please select your condition(s)",
+		title: "Medical Conditions",
+		options: [
+			{ id: "1", value: "Hypertension" },
+			{ id: "2", value: "Diabetes" },
+			{ id: "3", value: "Heart Disease" },
+			{ id: "4", value: "Chronic Respiratory Disease" },
+			{ id: "5", value: "Others" },
+		],
+	},
+
+	{
+		id: "101",
+		message: "How long have you had this condition?",
+		title: "Medical Condition Duration",
+		options: [
+			{ id: "1", value: "Less than 1 year" },
+			{ id: "2", value: "1-2 years" },
+			{ id: "3", value: "More than 2 years" },
+		],
+	},
+
+	{
+		id: "102",
+		message: "Are you currently undergoing treatment or taking medication for this condition?",
+		title: "Medical Conditions Treatment",
+		options: [
+			{ id: "1", value: "Yes" },
+			{ id: "2", value: "No" },
 		],
 	},
 ];
@@ -101,7 +136,7 @@ export const POLICIES: Policy[] = [
 		questions: [
 			...QUESTIONS,
 			{
-				id: "8",
+				id: "7",
 				message: "Which additional benefits are most important to you for life insurance?",
 				title: "Life Insurance Benefits",
 				options: [
@@ -122,7 +157,7 @@ export const POLICIES: Policy[] = [
 		questions: [
 			...QUESTIONS,
 			{
-				id: "8",
+				id: "7",
 				message: "Which additional benefits are most important to you for health insurance?",
 				title: "Health Insurance Benefits",
 				options: [

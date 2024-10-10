@@ -18,9 +18,16 @@ interface ConversationsProps {
 	messages: Message[];
 	initialResponse: string;
 	conversation: Conversation & { messages: Message[] };
+	policyType: PolicyType;
 }
 
-const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessages, initialResponse, conversation }) => {
+const Conversations: FC<ConversationsProps> = ({
+	history,
+	messages: initialMessages,
+	initialResponse,
+	conversation,
+	policyType,
+}) => {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
 	const [newMessage, setNewMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +58,7 @@ const Conversations: FC<ConversationsProps> = ({ history, messages: initialMessa
 				setMessages(updatedMessages);
 				setNewMessage("");
 
-				const response = await askGemini(newMsg.message, history);
+				const response = await askGemini(newMsg.message, history, policyType);
 
 				if (response.result) {
 					const newResponse: Message = {

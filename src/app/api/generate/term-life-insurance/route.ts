@@ -1,4 +1,4 @@
-import { SYSTEM_INSTRUCTION } from "@/lib/constants";
+import { SYSTEM_INSTRUCTION_FOR_TERM_LIFE_INSURANCE } from "@/lib/constants";
 import { Content, GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = process.env.GEMINI_API_KEY;
@@ -10,7 +10,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
 	// model: "gemini-1.5-pro",
 	model: "gemini-1.5-flash",
-	systemInstruction: SYSTEM_INSTRUCTION,
+	systemInstruction: SYSTEM_INSTRUCTION_FOR_TERM_LIFE_INSURANCE,
 });
 
 const generationConfig = {

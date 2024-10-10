@@ -21,6 +21,7 @@ declare type Question = {
 	message: string;
 	title: string;
 	options: Option[];
+	multiSelect?: boolean;
 };
 
 declare type SearchParamProps = {

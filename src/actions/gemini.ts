@@ -4,11 +4,7 @@ import { Message } from "@prisma/client";
 export const askGemini = async (text: string, messages: Message[], policyType: PolicyType) => {
 	const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 
-	console.log("baseURL", baseURL);
-
 	const url = `${baseURL}/api/generate/${policyType}`;
-
-	console.log("url", url);
 
 	const history: Content[] = messages.map(message => ({
 		parts: [{ text: message.message }],

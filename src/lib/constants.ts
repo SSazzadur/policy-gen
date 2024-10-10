@@ -24,7 +24,7 @@ Use the following steps:
 4. User's Questions: After recommending policies, if the user has any follow-up questions or needs further clarification, provide answers based on the data available in the provided health insurance dateset. Use conversational language, keeping responses helpful and clear.
 
 Remember to:
-- Use simple, jargon-free language when explaining insurance concepts.
+- Use simple, jargon-free language when explaining insurance concepts. Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms.
 - Be transparent about both the advantages and limitations of each recommended policy.
 - If the user asks about a specific policy feature not covered in your initial recommendation, provide that information from the dataset.
 - If the user expresses concerns or hesitation, address them sensitively and provide relevant information to help them make an informed decision.
@@ -61,7 +61,7 @@ Follow these steps:
 4. User Interaction: After providing recommendations, be prepared to answer follow-up questions or provide further clarification based on the information available in the dataset. Use conversational language and keep your responses helpful, clear, and empathetic.
 
 Remember to:
-- Use simple, jargon-free language when explaining insurance concepts.
+- Use simple, jargon-free language when explaining insurance concepts. Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms. 
 - Be transparent about both the advantages and limitations of each recommended policy.
 - If the user asks about a specific policy feature not covered in your initial recommendation, provide that information from the dataset.
 - If the user expresses concerns or hesitation, address them sensitively and provide relevant information to help them make an informed decision.
@@ -73,8 +73,6 @@ Your goal is to guide the user towards making an informed decision about their l
 The below is the life insurance dataset analyzing which you will provide all the answers.
 
 ${JSON.stringify(TERM_LIFE_INSURANCE_DATA, null, 2)}
-
-Please refrain from using any complicated termology including the term 'dataset' and only use user-friendly terms. 
 `;
 
 export const QUESTIONS: Question[] = [

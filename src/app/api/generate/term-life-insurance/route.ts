@@ -1,5 +1,5 @@
 import { SYSTEM_INSTRUCTION_FOR_TERM_LIFE_INSURANCE } from "@/lib/constants";
-import { Content, GoogleGenerativeAI } from "@google/generative-ai";
+import { Content, GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
@@ -8,12 +8,12 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-	// model: "gemini-1.5-pro",
-	model: "gemini-1.5-flash",
+	model: "gemini-1.5-pro",
+	// model: "gemini-1.5-flash",
 	systemInstruction: SYSTEM_INSTRUCTION_FOR_TERM_LIFE_INSURANCE,
 });
 
-const generationConfig = {
+export const generationConfig: GenerationConfig = {
 	temperature: 0.5,
 	topP: 0.95,
 	topK: 64,
@@ -23,7 +23,7 @@ const generationConfig = {
 
 async function run(text: string, history: Content[] = []) {
 	const chatSession = model.startChat({
-		generationConfig,
+		generationConfig: generationConfig,
 		history: history,
 	});
 

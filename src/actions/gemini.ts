@@ -1,3 +1,5 @@
+"use server";
+
 import { Content } from "@google/generative-ai";
 import { Message } from "@prisma/client";
 
@@ -21,6 +23,6 @@ export const askGemini = async (text: string, messages: Message[], policyType: P
 
 		return data;
 	} catch (error) {
-		console.log("error", error);
+		console.log("error in askGemini", error);
 	}
 };

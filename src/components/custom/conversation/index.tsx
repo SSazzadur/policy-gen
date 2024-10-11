@@ -49,7 +49,7 @@ const Conversations: FC<ConversationsProps> = ({
 			if (newMessage.trim()) {
 				const newMsg: Message = {
 					id: crypto.randomUUID(),
-					message: newMessage,
+					message: newMessage.trim(),
 					by: "user",
 					createdAt: new Date(),
 					conversationId: conversation.id,
